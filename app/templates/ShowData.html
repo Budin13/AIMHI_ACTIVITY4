@@ -1,0 +1,54 @@
+{% extends "base.html"%} {% block title %}Show Table Data{% endblock%} {% block
+content %}
+<div class="d-flex justify-content-start mb-3">
+  <a class="btn btn-warning" onclick="showConfirmationDialog()">Delete Data</a>
+</div>
+<body>
+  <table class="table" >
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">Ref</th>
+        <th scope="col">Status</th>
+        <th scope="col">Location</th>
+        <th scope="col">Name</th>
+        <th scope="col">Type</th>
+        <th scope="col">Status Changed</th>
+        <th scope="col">Open Actions</th>
+        <th scope="col">Total Actions</th>
+        <th scope="col">Association</th>
+        <th scope="col">OverDue</th>
+        <th scope="col">Images</th>
+        <th scope="col">Comments</th>
+        <th scope="col">Documents</th>
+        <th scope="col">Project</th>
+        <th scope="col">Report Forms</th>
+        <th scope="col">Report Forms Group</th>
+      </tr>
+    </thead>
+    <thead>
+      {% for data in table_data %}
+      <tr>
+        <td scope="row">{{ data.id }}</td>
+        <td>{{ data.Ref }}</td>
+        <td>{{ data.Status }}</td>
+        <td>{{ data.Location }}</td>
+        <td>{{ data.Name }}</td>
+        <td>{{ data.Type }}</td>
+        <td>{{ data.Status_Changed }}</td>
+        <td>{{ data.Open_Actions }}</td>
+        <td>{{ data.Total_Actions }}</td>
+        <td>{{ data.Association }}</td>
+        <td>{{ data.OverDue }}</td>
+        <td>{{ data.Images }}</td>
+        <td>{{ data.Comments }}</td>
+        <td>{{ data.Documents }}</td>
+        <td>{{ data.Project }}</td>
+        <td>{{ data.Report_Forms }}</td>
+        <td>{{ data.Report_Forms_Group }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+{% endblock %}
