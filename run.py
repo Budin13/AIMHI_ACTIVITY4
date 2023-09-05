@@ -1,6 +1,6 @@
 from flask import render_template, request, session, redirect, url_for, flash
 from app import app, db
-from app.models.DataSource import DataSource
+from app.models import DataSource, Conversion, MassWeightConversion
 from app.crud.insert import upload
 
 app.secret_key = "hehe"
@@ -45,7 +45,9 @@ def delete():
 
 
 def Configure():
-    DataSource()
+    DataSource.DataSource()
+    Conversion.Conversion()
+    MassWeightConversion.MassWeightConversion()
 
 
 Configure()
