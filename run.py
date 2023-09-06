@@ -26,7 +26,7 @@ def file():
 @app.route("/data")
 def data():
     if session.permanent:
-        table_data = DataSource.query.all()
+        table_data = Conversion.Conversion.query.all()
         return render_template("ShowData.html", table_data=table_data)
     else:
         return redirect(url_for("file"))
@@ -35,7 +35,7 @@ def data():
 @app.route("/delete")
 def delete():
     if session.permanent:
-        db.session.query(DataSource).delete()
+        db.session.query(Conversion.Conversion).delete()
         db.session.commit()
         session.permanent = False
         flash("Data has been deleted", "info")
