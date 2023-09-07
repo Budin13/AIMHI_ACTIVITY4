@@ -5,7 +5,11 @@ class MassWeightConversion(db.Model):
     __tablename__ = "MassWeightConversion"
 
     id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
-    to_convert = db.Column(db.String(200), nullable=False)
+    mass_weight = db.Column(
+        db.String(200),
+        db.ForeignKey("Conversion.mass_weight", ondelete="cascade", onupdate="cascade"),
+        nullable=False,
+    )
     kilogram = db.Column(db.Float, nullable=True)
     gram = db.Column(db.Float, nullable=True)
     milligram = db.Column(db.Float, nullable=True)

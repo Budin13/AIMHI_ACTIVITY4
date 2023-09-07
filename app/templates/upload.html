@@ -4,7 +4,18 @@ content %} {% if not session.permanent %}
   <h1>Upload SOURCE.CSV File</h1>
   <form method="post" enctype="multipart/form-data">
     <input type="file" name="csv_file" />
-    <input type="submit" value="Upload" />
+    <label for="dropdown">Select Type File:</label>
+    <select id="dropdown" name="role" required>
+      <option disabled selected value>Select Type File</option>
+      <option value="Conversion">Conversion</option>
+      <option value="Area">Area</option>
+      <option value="Fuel">Fuel</option>
+      <option value="Length">Length</option>
+      <option value="MassWeight">MassWeight</option>
+      <option value="Volume">Volume</option>
+    </select>
+    <br />
+    <input type="submit" value="Submit" />
   </form>
 </body>
 {% else %}

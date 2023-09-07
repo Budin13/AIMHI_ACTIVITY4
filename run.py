@@ -1,6 +1,6 @@
 from flask import render_template, request, session, redirect, url_for, flash
 from app import app, db
-from app.models import DataSource, Conversion, MassWeightConversion
+from app.models import Conversion, MassWeightConversion, import_models
 from app.crud.insert import upload
 
 app.secret_key = "hehe"
@@ -15,7 +15,7 @@ def home():
 @app.route("/file", methods=["POST", "GET"])
 def file():
     if request.method == "POST":
-        upload()
+        upload(request.form["role"])
         return redirect(url_for("home"))
     else:
         if session.permanent:
@@ -45,9 +45,7 @@ def delete():
 
 
 def Configure():
-    DataSource.DataSource()
-    Conversion.Conversion()
-    MassWeightConversion.MassWeightConversion()
+    import_models()
 
 
 Configure()
