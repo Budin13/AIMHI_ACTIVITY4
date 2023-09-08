@@ -1,6 +1,6 @@
 from flask import render_template, request, session, redirect, url_for, flash
 from app import app, db
-from app.models import Conversion, MassWeightConversion, import_models
+from app.models import MassWeightConversion, import_models
 from app.crud.insert import upload
 
 app.secret_key = "hehe"
@@ -26,7 +26,7 @@ def file():
 @app.route("/data")
 def data():
     if session.permanent:
-        table_data = Conversion.Conversion.query.all()
+        table_data = MassWeightConversion.MassWeightConversion.query.all()
         return render_template("ShowData.html", table_data=table_data)
     else:
         return redirect(url_for("file"))
@@ -35,7 +35,7 @@ def data():
 @app.route("/delete")
 def delete():
     if session.permanent:
-        db.session.query(Conversion.Conversion).delete()
+        db.session.query(MassWeightConversion.MassWeightConversion).delete()
         db.session.commit()
         session.permanent = False
         flash("Data has been deleted", "info")

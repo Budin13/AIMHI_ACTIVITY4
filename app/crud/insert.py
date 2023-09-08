@@ -1,5 +1,4 @@
 from flask import request, redirect, url_for, flash, session
-from app.models.Conversion import Conversion
 from app.models.AreaConversion import AreaConversion
 from app.models.FuelConversion import FuelConversion
 from app.models.LengthConversion import LengthConversion
@@ -11,46 +10,46 @@ import csv
 
 
 def upload(type):
-    if type == "Conversion":
-        csv_file = request.files["csv_file"]
-        if csv_file:
-            # Read the CSV file and insert data into the database
-            csv_data = csv.reader(csv_file.read().decode("utf-8").splitlines())
-            for row in csv_data:
-                # Check each cell for empty or NULL values
-                cleaned_row = []
-                for cell in row:
-                    if cell.strip() == "":
-                        cleaned_row.append(None)  # Insert None for empty cells
-                    else:
-                        cleaned_row.append(cell)
+    # if type == "Conversion":
+    #     csv_file = request.files["csv_file"]
+    #     if csv_file:
+    #         # Read the CSV file and insert data into the database
+    #         csv_data = csv.reader(csv_file.read().decode("utf-8").splitlines())
+    #         for row in csv_data:
+    #             # Check each cell for empty or NULL values
+    #             cleaned_row = []
+    #             for cell in row:
+    #                 if cell.strip() == "":
+    #                     cleaned_row.append(None)  # Insert None for empty cells
+    #                 else:
+    #                     cleaned_row.append(cell)
 
-                # Create a Conversion object with cleaned data
-                data = Conversion(
-                    volume=cleaned_row[0],
-                    area=cleaned_row[1],
-                    fuel=cleaned_row[2],
-                    length=cleaned_row[3],
-                    mass_weight=cleaned_row[4],
-                    lumber=cleaned_row[5],
-                    # inch=cleaned_row[6],
-                    # kilometer=cleaned_row[7],
-                    # mile=cleaned_row[8],
-                    # yard=cleaned_row[9],
-                    # hectare=cleaned_row[10],
-                    # liter=cleaned_row[11],
-                    # milliliter=cleaned_row[12],
-                    # gallon=cleaned_row[13],
-                    # quart=cleaned_row[14],
-                    # board_foot=cleaned_row[15],
-                )
-                db.session.add(data)
-                db.session.commit()
-                flash("File Uploaded", "info")
-        else:
-            flash("File Already Uploaded", "info")
+    #             # Create a Conversion object with cleaned data
+    #             data = Conversion(
+    #                 type=cleaned_row[0],
+    #                 unit=cleaned_row[1],
+    #                 # fuel=cleaned_row[2],
+    #                 # length=cleaned_row[3],
+    #                 # mass_weight=cleaned_row[4],
+    #                 # lumber=cleaned_row[5],
+    #                 # inch=cleaned_row[6],
+    #                 # kilometer=cleaned_row[7],
+    #                 # mile=cleaned_row[8],
+    #                 # yard=cleaned_row[9],
+    #                 # hectare=cleaned_row[10],
+    #                 # liter=cleaned_row[11],
+    #                 # milliliter=cleaned_row[12],
+    #                 # gallon=cleaned_row[13],
+    #                 # quart=cleaned_row[14],
+    #                 # board_foot=cleaned_row[15],
+    #             )
+    #             db.session.add(data)
+    #             db.session.commit()
+    #             flash("File Uploaded", "info")
+    #     else:
+    #         flash("File Already Uploaded", "info")
 
-    elif type == "Area":
+    if type == "Area":
         csv_file = request.files["csv_file"]
         if csv_file:
             # Read the CSV file and insert data into the database

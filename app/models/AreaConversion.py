@@ -5,11 +5,7 @@ class AreaConversion(db.Model):
     __tablename__ = "AreaConversion"
 
     id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
-    area = db.Column(
-        db.String(200),
-        db.ForeignKey("Conversion.area", ondelete="cascade", onupdate="cascade"),
-        nullable=False,
-    )
+    area = db.Column(db.String(200), nullable=False)
     hectare = db.Column(db.Numeric, nullable=False)
     square_meter = db.Column(db.Numeric, nullable=False)
     square_kilometer = db.Column(db.Numeric, nullable=False)

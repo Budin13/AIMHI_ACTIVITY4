@@ -5,11 +5,7 @@ class VolumeConversion(db.Model):
     __tablename__ = "VolumeConversion"
 
     id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
-    volume = db.Column(
-        db.String(200),
-        db.ForeignKey("Conversion.volume", ondelete="cascade", onupdate="cascade"),
-        nullable=False,
-    )
+    volume = db.Column(db.String(200), nullable=False)
     liter = db.Column(db.Numeric, nullable=False)
     milliliter = db.Column(db.Numeric, nullable=False)
     cubic_meter = db.Column(db.Numeric, nullable=False)
