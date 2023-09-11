@@ -190,6 +190,27 @@ def upload(type):
                 flash("File Uploaded", "info")
             else:
                 flash("File Already Uploaded", "info")
+
+    if type == "MaterialPrice":
+        csv_file = request.files["csv_file"]
+        if csv_file:
+            # Read the CSV file and insert data into the database
+            csv_data = csv.reader(csv_file.read().decode("utf-8").splitlines())
+            if db.session.query(AreaConversion).first() is None:
+                for row in csv_data:
+                    data = AreaConversion(
+                        description=row[0],
+                        material=row[1],
+                        unit=row[2],
+                        ave_price_luzon=row[3],
+                        ave_price_visayas=row[4],
+                        ave_price_mindanao=row[5],
+                    )
+                    db.session.add(data)
+                    db.session.commit()
+                flash("File Uploaded", "info")
+            else:
+                flash("File Already Uploaded", "info")
     # try:
     #     csv_file = request.files["csv_file"]
     #     if csv_file:
