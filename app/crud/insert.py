@@ -5,6 +5,7 @@ from app.models.LengthConversion import LengthConversion
 from app.models.LumberConversion import LumberConversion
 from app.models.MassWeightConversion import MassWeightConversion
 from app.models.VolumeConversion import VolumeConversion
+from app.models.MaterialPrice import MaterialPrice
 from app import db
 import csv
 
@@ -196,9 +197,9 @@ def upload(type):
         if csv_file:
             # Read the CSV file and insert data into the database
             csv_data = csv.reader(csv_file.read().decode("utf-8").splitlines())
-            if db.session.query(AreaConversion).first() is None:
+            if db.session.query(MaterialPrice).first() is None:
                 for row in csv_data:
-                    data = AreaConversion(
+                    data = MaterialPrice(
                         description=row[0],
                         material=row[1],
                         unit=row[2],
