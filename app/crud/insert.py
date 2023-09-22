@@ -5,7 +5,12 @@ from app.models.LengthConversion import LengthConversion
 from app.models.LumberConversion import LumberConversion
 from app.models.MassWeightConversion import MassWeightConversion
 from app.models.VolumeConversion import VolumeConversion
+from app.models.EngineeredWoodCoverage import EngineeredWoodCoverage
 from app.models.MaterialPrice import MaterialPrice
+from app.models.EquipmentProductivity import EquipmentProductivity
+from app.models.EquipmentProductivityGang import EquipmentProductivityGang
+from app.models.FiberCementCoverage import FiberCementCoverage
+from app.models.LumberCeilingBoardCoverage import LumberCeilingBoardCoverage
 from app import db
 import csv
 
@@ -88,11 +93,6 @@ def upload(type):
                         liter=row[2],
                         milliliter=row[3],
                         quart=row[4],
-                        # square_millimeter=row[4],
-                        # square_mile=row[5],
-                        # square_yard=row[6],
-                        # square_foot=row[7],
-                        # square_inch=row[8],
                     )
                     db.session.add(data)
                     db.session.commit()
@@ -212,38 +212,103 @@ def upload(type):
                 flash("File Uploaded", "info")
             else:
                 flash("File Already Uploaded", "info")
-    # try:
-    #     csv_file = request.files["csv_file"]
-    #     if csv_file:
-    #         # Read the CSV file and insert data into the database
-    #         csv_data = csv.reader(csv_file.read().decode("utf-8").splitlines())
-    #         if db.session.query(DataSource).first() is None:
-    #             for row in csv_data:
-    #                 data = DataSource(
-    #                     Ref=row[0],
-    #                     Status=row[1],
-    #                     Location=row[2],
-    #                     Name=row[3],
-    #                     Created=row[4],
-    #                     Type=row[5],
-    #                     Status_Changed=row[6],
-    #                     Open_Actions=row[7],
-    #                     Total_Actions=row[8],
-    #                     Association=row[9],
-    #                     OverDue=row[10],
-    #                     Images=row[11],
-    #                     Comments=row[12],
-    #                     Documents=row[13],
-    #                     Project=row[14],
-    #                     Report_Forms_Status=row[15],
-    #                     Report_Forms_Group=row[16],
-    #                 )
-    #                 db.session.add(data)
-    #                 db.session.commit()
-    #             session.permanent = True
-    #             flash("File Uploaded", "info")
-    #         else:
-    #             session.permanent = True
-    #             flash("File Already Uploaded", "info")
-    # except:
-    #     flash("Wrong File Uploaded", "info")
+
+    if type == "EngineeredWoodCoverage":
+        csv_file = request.files["csv_file"]
+        if csv_file:
+            # Read the CSV file and insert data into the database
+            csv_data = csv.reader(csv_file.read().decode("utf-8").splitlines())
+            if db.session.query(EngineeredWoodCoverage).first() is None:
+                for row in csv_data:
+                    data = EngineeredWoodCoverage(
+                        material=row[0],
+                        width_ft=row[1],
+                        length_ft=row[2],
+                        thickness_mm=row[3],
+                        area_sqft=row[4],
+                        volume_cuft=row[5],
+                    )
+                    db.session.add(data)
+                    db.session.commit()
+                flash("File Uploaded", "info")
+            else:
+                flash("File Already Uploaded", "info")
+    if type == "EquipmentProductivity":
+        csv_file = request.files["csv_file"]
+        if csv_file:
+            # Read the CSV file and insert data into the database
+            csv_data = csv.reader(csv_file.read().decode("utf-8").splitlines())
+            if db.session.query(EquipmentProductivity).first() is None:
+                for row in csv_data:
+                    data = EquipmentProductivity(
+                        equipment_id=row[0],
+                        sow_id=row[1],
+                        prod_rate_desc=row[2],
+                        output_per_day=row[3],
+                        unit=row[4],
+                        status=row[5],
+                    )
+                    db.session.add(data)
+                    db.session.commit()
+                flash("File Uploaded", "info")
+            else:
+                flash("File Already Uploaded", "info")
+
+    if type == "EquipmentProductivityGang":
+        csv_file = request.files["csv_file"]
+        if csv_file:
+            # Read the CSV file and insert data into the database
+            csv_data = csv.reader(csv_file.read().decode("utf-8").splitlines())
+            if db.session.query(EquipmentProductivityGang).first() is None:
+                for row in csv_data:
+                    data = EquipmentProductivityGang(
+                        manpower_id=row[0],
+                        sow_id=row[1],
+                        manpower_quantity=row[2],
+                        equipment_id=row[3],
+                    )
+                    db.session.add(data)
+                    db.session.commit()
+                flash("File Uploaded", "info")
+            else:
+                flash("File Already Uploaded", "info")
+
+    if type == "FiberCementCoverage":
+        csv_file = request.files["csv_file"]
+        if csv_file:
+            # Read the CSV file and insert data into the database
+            csv_data = csv.reader(csv_file.read().decode("utf-8").splitlines())
+            if db.session.query(FiberCementCoverage).first() is None:
+                for row in csv_data:
+                    data = FiberCementCoverage(
+                        item=row[0],
+                        width=row[1],
+                        length=row[2],
+                        area_sq=row[3],
+                        volume_cu=row[4],
+                        unit=row[5],
+                    )
+                    db.session.add(data)
+                    db.session.commit()
+                flash("File Uploaded", "info")
+            else:
+                flash("File Already Uploaded", "info")
+
+    if type == "LumberCeilingBoardCoverage":
+        csv_file = request.files["csv_file"]
+        if csv_file:
+            # Read the CSV file and insert data into the database
+            csv_data = csv.reader(csv_file.read().decode("utf-8").splitlines())
+            if db.session.query(LumberCeilingBoardCoverage).first() is None:
+                for row in csv_data:
+                    data = LumberCeilingBoardCoverage(
+                        board_size_length_cm=row[0],
+                        board_size_width_cm=row[1],
+                        covering_per_board=row[2],
+                        piece_per_sqm=row[3],
+                    )
+                    db.session.add(data)
+                    db.session.commit()
+                flash("File Uploaded", "info")
+            else:
+                flash("File Already Uploaded", "info")
