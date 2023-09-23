@@ -11,6 +11,7 @@ from app.models.EquipmentProductivity import EquipmentProductivity
 from app.models.EquipmentProductivityGang import EquipmentProductivityGang
 from app.models.FiberCementCoverage import FiberCementCoverage
 from app.models.LumberCeilingBoardCoverage import LumberCeilingBoardCoverage
+from app.models.LumberFloorSBCoverage import LumberFloorSBCoverage
 from app import db
 import csv
 
@@ -306,6 +307,25 @@ def upload(type):
                         board_size_width_cm=row[1],
                         covering_per_board=row[2],
                         piece_per_sqm=row[3],
+                    )
+                    db.session.add(data)
+                    db.session.commit()
+                flash("File Uploaded", "info")
+            else:
+                flash("File Already Uploaded", "info")
+
+    if type == "LumberFloorSBCoverage":
+        csv_file = request.files["csv_file"]
+        if csv_file:
+            # Read the CSV file and insert data into the database
+            csv_data = csv.reader(csv_file.read().decode("utf-8").splitlines())
+            if db.session.query(LumberFloorSBCoverage).first() is None:
+                for row in csv_data:
+                    data = LumberFloorSBCoverage(
+                        board_length_in=row[0],
+                        board_width_in=row[1],
+                        effective_width_m=row[2],
+                        bdft_per_sqm=row[3],
                     )
                     db.session.add(data)
                     db.session.commit()
